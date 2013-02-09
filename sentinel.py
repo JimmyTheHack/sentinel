@@ -36,6 +36,7 @@ import usb.core
 import cv
 import subprocess
 from PIL import Image
+from optparse import OptionParser
 
 class LauncherDriver():
    # Low level launcher driver commands
@@ -164,8 +165,19 @@ class Camera():
 if __name__ == '__main__':
    if os.name == 'posix' and not os.geteuid() == 0:
        sys.exit("Script must be run as root.")
+
+   parser = OptionParser()
+   parser.add_option("-c", "--camera", dest="camera", default='/dev/video0',
+                     help="set PATH as camera input (/dev/video0 by default)", metavar="PATH")
+   opts, args = parser.parse_args()
+
    turret = Turret()
+<<<<<<< HEAD
    camera = Camera('/dev/video0')
+=======
+   camera = Camera(opts.camera)
+
+>>>>>>> using optparse, adding --camera option
    turret.center()
 
    while True:
